@@ -156,8 +156,9 @@ public class MongoDbCollectionSchema implements DataCollectionSchema {
                     value.put(MongoDbFieldName.UPDATE_DESCRIPTION, updateDescription);
                 }
                 break;
-            case DELETE:
-                break;
+            case DELETE: //  tratamento para inserir identificação no delete
+                final String idKey = document.getDocumentKey().get("_id").toString();
+                value.put(MongoDbFieldName.FILTER, idKey);
         }
         return value;
     }
